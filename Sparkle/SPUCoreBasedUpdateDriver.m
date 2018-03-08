@@ -168,6 +168,12 @@
 {
     self.downloadDriver = [[SPUDownloadDriver alloc] initWithUpdateItem:updateItem host:self.host userAgent:self.userAgent inBackground:background delegate:self];
     
+    if ([self.updaterDelegate respondsToSelector:@selector(updater:shouldDownloadUpdate:)]) {
+        if (![self.updaterDelegate updater:self.updater shouldDownloadUpdate:updateItem]) {
+            return;
+        }
+    }
+    
     if ([self.updaterDelegate respondsToSelector:@selector(updater:willDownloadUpdate:withRequest:)]) {
         [self.updaterDelegate updater:self.updater
                                willDownloadUpdate:updateItem

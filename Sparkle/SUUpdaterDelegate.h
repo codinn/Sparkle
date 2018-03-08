@@ -139,6 +139,16 @@ __deprecated_msg("See SPUUpdaterDelegate instead")
 - (void)updater:(SUUpdater *)updater willDownloadUpdate:(SUAppcastItem *)item withRequest:(NSMutableURLRequest *)request;
 
 /*!
+ Called immediately before downloading the specified update.
+ 
+ \param updater The updater instance.
+ \param item The appcast item corresponding to the update that is proposed to be downloaded.
+ 
+ \return \c YES to continue download \p NO to cancel.
+ */
+- (BOOL)updater:(SUUpdater *)updater shouldDownloadUpdate:(SUAppcastItem *)item;
+
+/*!
  Called after the specified update failed to download.
  
  \param updater The SUUpdater instance.

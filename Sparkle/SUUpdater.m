@@ -328,6 +328,14 @@ static NSMutableDictionary *sharedUpdaters = nil;
         }
 }
 
+- (BOOL)updater:(SPUUpdater *)__unused updater shouldDownloadUpdate:(SUAppcastItem *)item
+{
+    if ([self.delegate respondsToSelector:@selector(updater:shouldDownloadUpdate:)]) {
+        return [self.delegate updater:self shouldDownloadUpdate:item];
+    }
+    return true;
+}
+
 - (void)updater:(SPUUpdater *)__unused updater failedToDownloadUpdate:(SUAppcastItem *)item error:(NSError *)error
 {
     if ([self.delegate respondsToSelector:@selector(updater:failedToDownloadUpdate:error:)]) {
